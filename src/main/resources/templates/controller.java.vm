@@ -1,0 +1,81 @@
+package ${package.Controller};
+
+import org.springframework.web.bind.annotation.*;
+
+    #if(${restControllerStyle})
+    import org.springframework.web.bind.annotation.RestController;
+    #else
+    import org.springframework.stereotype.Controller;
+    #end
+    #if(${superControllerClassPackage})
+    import ${superControllerClassPackage};
+    #end
+import $!{package.Service}.$!{table.serviceName};
+import ${package.Entity}.${entity};
+import javax.validation.Valid;
+
+/**
+ * <p>
+ * $!{table.comment}
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+public class ${table.controllerName} {
+
+private final $!{table.serviceName} $!{table.entityPath}Service;
+
+/**
+ * 分页列表
+ *
+ * @param page   分页信息
+ * @param search 　搜索关键词
+ * @return Result
+ */
+@PostMapping("/list")
+public List<$!{entity}> list(Page page,PageParamDto dto){
+        return $!{table.entityPath}Service.page(page,dto);
+        }
+
+/**
+ * $!{table.comment}信息
+ *
+ * @param id Id
+ * @return Result
+ */
+@PostMapping("/add")
+public Boolean add(@RequestParam String id){
+        return $!{table.entityPath}Service.save(id);
+        }
+
+/**
+ * $!{table.comment}设置
+ *
+ * @param $!{table.entityPath} $!{entity} 对象
+ * @return Result
+ */
+@PostMapping("/update")
+public Boolean update(@Valid @RequestBody $!{entity} $!{table.entityPath}){
+        return $!{table.entityPath}Service.saveOrUpdate($!{table.entityPath});
+        }
+
+/**
+ * $!{table.comment}删除
+ *
+ * @param ids id字符串，根据,号分隔
+ * @return Result
+ */
+@PostMapping("/del")
+public Boolean del(@RequestParam String ids){
+        return $!{table.entityPath}Service.removeByIds(CollectionUtil.stringToCollection(ids));
+        }
+
+        }
+        
