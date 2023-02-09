@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('DOCKER BUILD & PUSH') {
       steps {
-        sh '''echo build in dir: "$(pwd)"
+        sh '''sudo su
+echo build in dir: "$(pwd)"
 
 docker build -f ./Dockerfile -t mpcg:20230208 .
 docker tag mpcg:20230208 sobev/mpcg:20230208
