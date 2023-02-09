@@ -10,7 +10,7 @@ mvn clean package -Dmaven.test.skip=true
 sudo docker build -f ./Dockerfile -t mpcg:20230208 .
 sudo docker tag mpcg:20230208 sobev/mpcg:20230208
 sudo docker login -u sobev -p dckr_pat_5Zf44zQpMGDrKEA9vkt4ClFKxLo
-sudo docker push mpcg:20230208'''
+sudo docker push sobev/mpcg:20230208'''
       }
     }
 
