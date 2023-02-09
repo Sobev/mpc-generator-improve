@@ -3,8 +3,9 @@ pipeline {
   stages {
     stage('DOCKER BUILD & PUSH') {
       steps {
-        sh '''sudo su
-echo build in dir: "$(pwd)"
+        sh '''echo build in dir: "$(pwd)"
+
+mvn clean package -Dmaven.test.skip=true
 
 sudo docker build -f ./Dockerfile -t mpcg:20230208 .
 sudo docker tag mpcg:20230208 sobev/mpcg:20230208
